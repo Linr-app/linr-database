@@ -1,0 +1,1 @@
+UPDATE usuariofila set hora_saida_restaurante = $1 where id_usuario_fila = $2;
