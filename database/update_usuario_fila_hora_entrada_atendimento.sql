@@ -1,1 +1,1 @@
-UPDATE usuariofila set hora_entrada_atendimento = $1 where id_usuario_fila = $2;
+UPDATE usuariofila SET hora_entrada_atendimento = $1 WHERE id_usuario_fila = $2;
