@@ -33,4 +33,3 @@ SELECT * FROM UsuarioFila_UsuarioCadastrado
   INNER JOIN T4 ON (T3.id_usuario_fila = T4.id_usuario_fila)
   WHERE id_fila  =  $1
   AS T5;
-  
