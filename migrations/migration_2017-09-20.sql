@@ -73,16 +73,22 @@ CREATE TABLE IF NOT EXISTS linr_sc.RestauranteCategoria (
 );
 
 -- -----------------------------------------------------
+-- Table linr_sc.Usuario
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS linr_sc.Usuario (
+  id_usuario            BIGSERIAL   PRIMARY KEY,
+  nome                  TEXT        NOT NULL,
+  telefone              VARCHAR(15) NOT NULL,
+);
+
+-- -----------------------------------------------------
 -- Table linr_sc.UsuarioCadastrado
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS linr_sc.UsuarioCadastrado (
-  id_usuario_cadastrado BIGSERIAL PRIMARY KEY,
-  nome                  TEXT        NOT NULL,
+  id_usuario            BIGINT      PRIMARY KEY REFERENCES linr_sc.Usuario ON DELETE RESTRICT ON UPDATE RESTRICT,
   email                 TEXT        NOT NULL,
-  telefone              VARCHAR(15) NOT NULL,
   senha                 VARCHAR(36) NOT NULL
 );
-
 CREATE UNIQUE INDEX email_index
   ON linr_sc.UsuarioCadastrado (email ASC);
 
@@ -91,7 +97,8 @@ CREATE UNIQUE INDEX email_index
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS linr_sc.UsuarioFila (
   id_usuario_fila          BIGSERIAL PRIMARY KEY,
-  id_fila                  BIGINT REFERENCES linr_sc.Fila ON DELETE RESTRICT ON UPDATE RESTRICT,
+  id_fila                  BIGINT    REFERENCES linr_sc.Fila ON DELETE RESTRICT ON UPDATE RESTRICT,
+  id_usuario               BIGINT    REFERENCES linr_sc.Usuario ON DELETE RESTRICT ON UPDATE RESTRICT,
   hora_entrada_fila        TIMESTAMP NOT NULL,
   hora_entrada_atendimento TIMESTAMP NULL,
   hora_saida_restaurante   TIMESTAMP NULL,
@@ -99,23 +106,3 @@ CREATE TABLE IF NOT EXISTS linr_sc.UsuarioFila (
   tem_reserva              BOOLEAN   NOT NULL DEFAULT FALSE,
   desistiu_da_fila         BOOLEAN   NOT NULL DEFAULT FALSE
 );
-
--- -----------------------------------------------------
--- Table linr_sc.UsuarioTemporario
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS linr_sc.UsuarioTemporario (
-  id_usuario_temporario BIGSERIAL PRIMARY KEY,
-  is_usuario_fila       BIGINT REFERENCES linr_sc.UsuarioFila ON DELETE RESTRICT ON UPDATE RESTRICT,
-  nome                  TEXT        NOT NULL,
-  telefone              VARCHAR(15) NULL
-);
-
--- -----------------------------------------------------
--- Table linr_sc.UsuarioFila_Usuario
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS linr_sc.UsuarioFila_UsuarioCadastrado (
-  id_usuario_cadastrado BIGINT REFERENCES linr_sc.UsuarioCadastrado,
-  id_usuario_fila       BIGINT REFERENCES linr_sc.UsuarioFila,
-  PRIMARY KEY (id_usuario_cadastrado, id_usuario_fila)
-);
-
