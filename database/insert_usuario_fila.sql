@@ -1,5 +1,5 @@
-INSERT INTO UsuarioFila (id_fila, hora_entrada_fila, hora_entrada_atendimento, hora_saida_restaurante, qtd_pessoas)
-VALUES ($1, $2, $3, $4, $5)
+INSERT INTO UsuarioFila (id_fila, id_usuario, hora_entrada_fila, hora_entrada_atendimento, hora_saida_restaurante, qtd_pessoas)
+VALUES ($1, $2, $3, $4, $5, $6)
 WHERE NOT EXISTS
 (
 SELECT *
@@ -20,5 +20,5 @@ AS T2;
 
 SELECT (id_usuario_fila)
 FROM T2
-WHERE id_usuario = $1
+WHERE id_usuario = $2
 )
