@@ -1,7 +1,3 @@
-INSERT INTO UsuarioFila (id_fila, id_usuario, hora_entrada_fila, hora_entrada_atendimento, hora_saida_restaurante, qtd_pessoas)
-VALUES ($1, $2, $3, $4, $5, $6)
-WHERE NOT EXISTS
-(
 SELECT *
 FROM Usuario
 LEFT JOIN UsuarioCadastrado
@@ -18,7 +14,6 @@ ORDER BY UsuarioFila.id_usuario_fila
 WHERE id_fila  =  $1 AND UsuarioFila.hora_entrada_atendimento = NULL
 AS T2;
 
-SELECT (id_usuario_fila)
+SELECT COUNT (id_usuario_fila)
 FROM T2
-WHERE id_usuario = $2
-)
+WHERE id_usuario = $1
