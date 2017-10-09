@@ -1,2 +1,2 @@
-INSERT INTO usuariocadastrado (id_usuario_cadastrado, nome, email, telefone, senha)
-VALUES ($1, $2, $3, $4, $5);
+INSERT INTO UsuarioCadastrado (id_usuario, email, senha)
+VALUES ($1, $2, $3);
